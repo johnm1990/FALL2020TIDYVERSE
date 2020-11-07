@@ -496,6 +496,8 @@ For more about tidyverse packages:
 ggplot2_vignettes: By Jordan Tapke 
 =======
 Zhouxin Shi CREATE - function(read_csv,filter,select), data(Public Use Microdata Sample)
+
+Ellen Kim EXTEND - Using select with exclusions, and renaming while subsetting 
 =======
 
 ### group_split() vignette by Jack Wright

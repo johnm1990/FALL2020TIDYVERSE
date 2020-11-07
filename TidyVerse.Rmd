@@ -43,4 +43,46 @@ filter(pums,Age > 36)
 
 ```
 
+#### Select with blacklist vs conventional whitelist
+Lets extend the 'Select' function we just covered. We can use this function to select a subset of columns but also excluding explicit columns. Sometimes this leads to less syntax, especially when you want to keep a majority of the columns.
 
+On top of that we will also include the `head` function so that we can view a sample of our data, without running the entire dataframe into memory.
+
+```{r}
+pums %>%
+  select(-Worker_Class, -School_Attending) %>%
+    head()
+```
+
+#### Renaming Columns with Select
+Select can also be used to rename columns. However, that drops all the columns that are not mentioned. 
+
+
+```{r}
+pums %>%
+  select(gender = SEX,
+         salary = Total_Personal_Earnings,
+         other_income = Total_Personal_Income
+         ) %>%
+  head()
+
+```
+
+##### Select a subset and rename
+But what if you only want to rename some of the columns and also maintain a subset of the data? In that case, you can use the rename function.
+
+```{r}
+pums %>%
+  # selects subset of original dataframe
+  select(-Worker_Class, -School_Attending) %>%
+  # renames columns with new header
+    rename(gender = SEX,
+           salary = Total_Personal_Earnings,
+           other_income = Total_Personal_Income
+           ) %>%
+  # displays only first 5 rows
+      head(5)
+
+
+```
+ 
