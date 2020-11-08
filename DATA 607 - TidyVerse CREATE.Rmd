@@ -129,7 +129,7 @@ glimpse(foul_sum)
 
 
 
-### Shana, I've extended your analysis results by adding a GGPLOT bar chart of frequency of "Max" value for the Type of Hit. ###
+### Shana, I've extended your analysis results by adding a GGPLOT bar chart of frequency of "Max" value for the Type of Hit. This is one of many graphical analysis available in tidyverse ###
 
 ggplot(foul_sum, aes(x=Type_of_Hit, y=Max)) + 
   geom_bar(stat = "identity")
