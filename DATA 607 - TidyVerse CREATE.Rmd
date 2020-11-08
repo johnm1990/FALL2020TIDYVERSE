@@ -82,6 +82,9 @@ foul %>%
 Since this is a large data set, I wanted to take a look at the top 20 highest exit velocities. 
 
 ```{r}
+
+### Shana, nice use of the arrange and head function combo to get the top 20 highest exit velocities ###
+
 foul %>%
     arrange(desc(Exit_Velocity))%>%
     head(20)
@@ -102,6 +105,10 @@ foul_sum <- group_by(foul_info, Type_of_Hit)
 ```
 
 ```{r}
+
+
+
+
 foul_sum <- summarise(foul_sum,Min=min(Exit_Velocity),Max = max(Exit_Velocity),Median=median(Exit_Velocity), Mean=round(mean(Exit_Velocity),1))
 
 ```
@@ -111,3 +118,24 @@ foul_sum<-as.data.frame(foul_sum)
 foul_sum
 
 ```
+
+```{r}
+
+### Shana, I've extended your analysis results by adding/creating a tibble from foul_sum data frame and portraying the head, tail and glimpse values from respective functions  ###
+diamond_data <- as_tibble(foul_sum)
+head(foul_sum)
+tail(foul_sum)
+glimpse(foul_sum)
+
+
+
+### Shana, I've extended your analysis results by adding a GGPLOT bar chart of frequency of "Max" value for the Type of Hit. ###
+
+ggplot(foul_sum, aes(x=Type_of_Hit, y=Max)) + 
+  geom_bar(stat = "identity")
+
+
+
+
+```
+
