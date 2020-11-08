@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#### Excellent analysis Shana. 10 out of 10 points
+
 ## Assignment
 
 In this assignment, you’ll practice collaborating around a code project with GitHub.  You could consider our collective work as building out a book of examples on how to use TidyVerse functions.
@@ -33,12 +35,12 @@ You should complete your submission on the schedule stated in the course syllabu
 
 The dataset I chose came from FiveThirtyEight.com article [We Watched 906 Foul Balls To Find Out Where The Most Dangerous Ones Land](https://fivethirtyeight.com/features/we-watched-906-foul-balls-to-find-out-where-the-most-dangerous-ones-land/). 
 
-
+### Very interesting dataset choice ###
 ```{r}
 library(tidyverse)
 ```
 
-## Reading the Data from Github
+### Reading the Data from Github ###
 
 ```{r}
 
