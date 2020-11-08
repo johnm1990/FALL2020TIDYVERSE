@@ -88,6 +88,40 @@ steakdata4 <- steakdata3 %>%
   head(steakdata4)
 ```
 
+## Subset distinct observations from the data
 
+```{r}
+#remove respondentID column
+steakdata5 <- steakdata4[2:15]
+steakdata6 <- dplyr::distinct(steakdata5)
+
+head(steakdata6)
+```
+
+## Extract a single colum from data
+```{r}
+#extract drink_alcohol column by index
+steakdata7 <- dplyr::pull(steakdata6, 3)
+
+#extract drink_alcohol column by negative index
+steakdata7 <- dplyr::pull(steakdata6, -12)
+
+#extract drink_alcohol column by name
+steakdata7 <- dplyr::pull(steakdata6, drink_alcohol)
+
+head(steakdata7)
+```
+
+## Change the column order
+
+```{r}
+#move Gender column to second column using .before
+steakdata8 <- dplyr::relocate(steakdata4, Gender, .before = lottery)
+
+#move Gender column to second column using .after
+steakdata8 <- dplyr::relocate(steakdata4, Gender, .after = RespondentID)
+
+head(steakdata8)
+```
 
 
