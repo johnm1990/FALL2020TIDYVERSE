@@ -1,0 +1,158 @@
+---
+title: "TidyVerse CREATE"
+author: "Arushi Arora"
+date: "10/23/2020"
+output: openintro::lab_report
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introdction
+The following example from Five Thirty Eight https://fivethirtyeight.com/features/how-americans-like-their-steak/
+
+The core tidyverse package includes "readr" and "dplyr"
+"readr" provides a fast and friendly way to read rectangular data
+"dplyr" provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation 
+
+#### Importing libraries
+```{r warning=FALSE}
+if(!require('tidyverse'))install.packages('tidyverse')
+library (tidyverse)
+library(dplyr, warn.conflicts = FALSE) # for cleaning the data
+options(dplyr.summarise.inform = FALSE)
+```
+
+
+```{r warning=FALSE}
+urlfile="https://raw.githubusercontent.com/fivethirtyeight/data/master/steak-survey/steak-risk-survey.csv"
+
+steakdata<- readr::read_csv(url(urlfile))
+
+head(steakdata)
+```
+
+## Rename columns
+
+```{r warning=FALSE}
+steakdata1 = dplyr::rename(steakdata, 
+"lottery" = "Consider the following hypothetical situations: <br>In Lottery A, you have a 50% chance of success, with a payout of $100. <br>In Lottery B, you have a 90% chance of success, with a payout of $20. <br><br>Assuming you have $10 to bet, would you play Lottery A or Lottery B?", 
+"smoke_cigs" = "Do you ever smoke cigarettes?" ,
+"drink_alcohol" = "Do you ever drink alcohol?", 
+"gamble" = "Do you ever gamble?",
+"skydiving" = "Have you ever been skydiving?",
+"overspeeding" = "Do you ever drive above the speed limit?",
+"cheat_patner" = "Have you ever cheated on your significant other?",
+"eat_steak" = "Do you eat steak?",
+"steak_prep" = "How do you like your steak prepared?",
+"hh_income" = "Household Income",
+"location" = "Location (Census Region)")
+head(steakdata1)
+```
+
+## Remove first row
+
+```{r warning=FALSE}
+steakdata2 <- steakdata1[-c(1), ]
+
+head(steakdata2)
+```
+
+## Mutate Char variables to Factor
+
+```{r warning=FALSE}
+steakdata3 <- steakdata2 %>% as_tibble() 
+
+steakdata4 <- steakdata3 %>%
+  mutate(lottery = as.factor(lottery)) %>%
+  mutate(smoke_cigs = as.factor(smoke_cigs)) %>%
+  mutate(drink_alcohol = as.factor(drink_alcohol)) %>%
+  mutate(gamble = as.factor(gamble)) %>%
+  mutate(skydiving = as.factor(skydiving)) %>%
+  mutate(overspeeding = as.factor(overspeeding)) %>%
+  mutate(cheat_patner = as.factor(cheat_patner)) %>%
+  mutate(eat_steak = as.factor(eat_steak)) %>%
+  mutate(steak_prep = as.factor(steak_prep)) %>%
+  mutate(Gender = as.factor(Gender)) %>%
+  mutate(Age = as.factor(Age)) %>%
+  mutate(hh_income = as.factor(hh_income)) %>%
+  mutate(Education = as.factor(Education)) %>%
+  mutate(location = as.factor(location))
+```
+
+
+# Tidyverse Extend
+
+Karim here to add some further analysis, Arushi has done a great job analyzing How Americans Like Their Steak. 
+
+```{r}
+#Lets remove the N/A from the following columns
+steakdata4 <- subset(steakdata4, Age != "N/A")
+steakdata4 <- subset(steakdata4, Education != "N/A")
+steakdata4 <- subset(steakdata4, hh_income != "N/A")
+
+head(steakdata4)
+```
+
+
+## Subset distinct observations from the data
+
+```{r}
+#remove respondentID column
+steakdata5 <- steakdata4[2:15]
+steakdata6 <- dplyr::distinct(steakdata5)
+
+head(steakdata6)
+```
+
+## Extract a single colum from data
+```{r}
+#extract drink_alcohol column by index
+steakdata7 <- dplyr::pull(steakdata6, 3)
+
+#extract drink_alcohol column by negative index
+steakdata7 <- dplyr::pull(steakdata6, -12)
+
+#extract drink_alcohol column by name
+steakdata7 <- dplyr::pull(steakdata6, drink_alcohol)
+
+head(steakdata7)
+```
+
+## Change the column order
+
+```{r}
+#move Gender column to second column using .before
+steakdata8 <- dplyr::relocate(steakdata4, Gender, .before = lottery)
+
+#move Gender column to second column using .after
+steakdata8 <- dplyr::relocate(steakdata4, Gender, .after = RespondentID)
+
+head(steakdata8)
+=======
+Lets check how Age, Education, and steak_prep by building a animated bubble chart using the 'gganimate' library to extend ggplot2's functionality.
+
+```{r, message = FALSE}
+# package to extend ggplot2 functionality
+library(gganimate)
+# package that will display the animated output when you knit to HTML
+library(gifski)
+```
+
+
+```{r warning=FALSE}
+# Setup basic ggplot barchart
+ggplot(steakdata4, aes(x= Age, y=Education, fill=Education)) + 
+  geom_bar(stat='identity') +
+  theme(legend.position="bottom", legend.box="vertical", legend.margin=margin()) +
+  theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  guides(fill=guide_legend(nrow=2,byrow=TRUE)) +
+  coord_flip() +
+  
+# steak_prep as the variable it transitions on
+  transition_states(steak_prep) +
+  ease_aes('sine-in-out') + 
+  labs(title = 'How Americans like their steak: {closest_state}', x = 'Age', y = 'Level of Education')
+```
