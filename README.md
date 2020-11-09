@@ -1,3 +1,10 @@
+=======
+Update: 7 November 2020
+Author: Cameron Smith
+Summary: Added examples illustrating 'mutate' and 'transmute' functions to the original submission by Peter Fernandes
+=======
+
+=======
 Orli Khaimova extending Douglas Barley's Vignette
 
 ```{r setup, include=FALSE}
@@ -150,6 +157,7 @@ ggplot(top_5_countries) +
 
 
 =======
+
 # Karim Hommod
 My analysis includs analysing the sales of video games all around the world, I used more than one Tidyverse packges, and collected the data from Kaggle. 
 =======
