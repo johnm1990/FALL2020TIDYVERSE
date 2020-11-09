@@ -1,3 +1,9 @@
+=======================================================================================
+### John Mazon - Extended Shana Green's code by adding the tibble function to utilized head, tail, glimpse. Lastly used ggplot to depict the foul_sum data
+
+
+
+=========================================================================================
 # Karim Hommod
 My analysis includs analysing the sales of video games all around the world, I used more than one Tidyverse packges, and collected the data from Kaggle. 
 =======
