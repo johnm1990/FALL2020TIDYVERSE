@@ -142,5 +142,3 @@ df %>%
   summarize(average_total_income = 
               sum(Total_Personal_Income, na.rm = TRUE) / n())
 ```
-
-
